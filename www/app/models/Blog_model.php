@@ -12,16 +12,21 @@ class Blog_model extends CI_Model
 
     public function get_last_ten_entries()
     {
-        echo "==> Blog_model :: get_last_ten_entries() <br>";
+        log_message('error', '==> Blog_model :: get_last_ten_entries()');
     }
 
     public function insert_entry()
     {
-        echo "==> Blog_model :: insert_entry() <br>";
+        log_message('error', '==> Blog_model :: insert_entry()');
     }
 
-    public function update_entry()
+    public function update_entry($val)
     {
-        echo "==> Blog_model :: update_entry() <br>";
+        log_message('error', '==> Blog_model :: update_entry() : ' . $val);
+    }
+
+    public function delete_entry($val)
+    {
+        log_message('error', '==> Blog_model :: delete_entry() : ' . $val);
     }
 }
