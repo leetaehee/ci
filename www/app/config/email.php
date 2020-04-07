@@ -10,3 +10,4 @@ $config['smtp_timeout'] = 10;
 //$config['smtp_crypto'] = 'ssl';
 $config['smtp_crypto'] = 'tls';
 $config['newline']  = "\r\n";
+//$config['validate'] = FALSE;

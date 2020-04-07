@@ -49,8 +49,14 @@ class Blog extends CI_Controller
 
         $this->email->from('lastride25@naver.com', "이태희");
         $this->email->to('ceman08071039@gmail.com');
-        $this->email->subject('코드이그나이터에서 이메일 발송 테스트');
-        $this->email->message('코드이그나이터 테스트');
+        $this->email->cc(
+            array(
+                'lastride25@naver.com',
+                'jimin860987@naver.com'
+            )
+        );
+        $this->email->subject('코드이그나이터 프레임워크 사용하기: smtp mail 테스트');
+        $this->email->message('코드이그나이터 정복 하기! ㅎㅎ');
 
         $this->email->send();
     }
