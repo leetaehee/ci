@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 // blog
 $route['default_controller'] = 'Welcome';
 
+$route['blog'] = 'Blog/index';
 $route['blog/cm'] = 'Blog/comments';
 $route['blog/update/(:val)'] = 'Blog/update';
 $route['blog/insert'] = 'Blog/insert';

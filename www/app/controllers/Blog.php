@@ -24,12 +24,35 @@ class Blog extends CI_Controller
 
     public function comments()
     {
-        echo 'Loot at this!';
+        // open config file.
+        $this->config->load('thConfig');
+        $testSetting =  $this->config->item('test_setting');
+
+        //$this->config->set_item('dev_dbms', 'MariaDB');
+        $testSetting['dev_dbms'] = 'MariaDB';
+
+        // 파일캐싱
+        $this->load->driver('cache');
+        $content = 'Loot at this! : ' . $testSetting['dev_dbms'];
+        $this->cache->file->save('content', $content, 60);
+
+        // 가져오기.
+        echo $this->cache->file->get('content');
     }
 
     public function insert()
     {
         $this->Blog_model->insert_entry();
+
+        // 이메일 보내기
+        $this->load->library('email');
+
+        $this->email->from('lastride25@naver.com', "이태희");
+        $this->email->to('ceman08071039@gmail.com');
+        $this->email->subject('코드이그나이터에서 이메일 발송 테스트');
+        $this->email->message('코드이그나이터 테스트');
+
+        $this->email->send();
     }
 
     public function update($val)
