@@ -58,7 +58,10 @@ class Blog extends CI_Controller
         $this->email->subject('코드이그나이터 프레임워크 사용하기: smtp mail 테스트');
         $this->email->message('코드이그나이터 정복 하기! ㅎㅎ');
 
-        $this->email->send();
+        $result = $this->email->send();
+        $errorMessage = ($result === true) ?  'success' : 'fail';
+
+        log_message('info', '==> mail send status code : ' . $errorMessage);
     }
 
     public function update($val)
