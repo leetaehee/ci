@@ -51,8 +51,6 @@ class Blog extends CI_Controller
         $encryptPassword = $this->encryption->encrypt('akfxlwmeoxhdfud!@');
         // 복호화
         $decryptPassword = $this->encryption->decrypt($encryptPassword);
-
-        echo '1';
     }
 
     public function update($val)
