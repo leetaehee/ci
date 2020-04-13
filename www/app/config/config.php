@@ -23,8 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-//$config['base_url'] = 'http://ci.study';
-$config['base_url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $config['HTTP_HOST'];
+$config['base_url'] = $_ENV['SITE_DOMAIN'] ?? 'http://ci.study';
 
 /*
 |--------------------------------------------------------------------------
