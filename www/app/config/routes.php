@@ -62,3 +62,4 @@ $route['blog/cm'] = 'Blog/comments';
 $route['blog/update/(:val)'] = 'Blog/update';
 $route['blog/insert'] = 'Blog/insert';
 $route['blog/delete/(:val)'] = 'Blog/delete';
+//$route['blog/mail'] = 'Blog/mail';

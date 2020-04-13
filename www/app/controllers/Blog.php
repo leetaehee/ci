@@ -43,7 +43,20 @@ class Blog extends CI_Controller
     public function insert()
     {
         $this->Blog_model->insert_entry();
+    }
 
+    public function update($val)
+    {
+        $this->Blog_model->update_entry($val);
+    }
+
+    public function delete($val)
+    {
+        $this->Blog_model->delete_entry($val);
+    }
+
+    public function mail()
+    {
         // 이메일 보내기
         $this->load->library('email');
 
@@ -62,15 +75,5 @@ class Blog extends CI_Controller
         $errorMessage = ($result === true) ?  'success' : 'fail';
 
         log_message('info', '==> mail send status code : ' . $errorMessage);
-    }
-
-    public function update($val)
-    {
-        $this->Blog_model->update_entry($val);
-    }
-
-    public function delete($val)
-    {
-        $this->Blog_model->delete_entry($val);
     }
 }
