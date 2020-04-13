@@ -14,7 +14,7 @@ user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
 
-git rm ENV.php
+ENV.php
 
 # IDE Files
 #-------------------------
