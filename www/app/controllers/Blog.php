@@ -43,6 +43,14 @@ class Blog extends CI_Controller
     public function insert()
     {
         $this->Blog_model->insert_entry();
+
+        // 암호화 클래스 초기화
+        $this->load->library('encryption');
+
+        // 암호화
+        $encryptPassword = $this->encryption->encrypt('akfxlwmeoxhdfud!@');
+        // 복호화
+        $decryptPassword = $this->encryption->decrypt($encryptPassword);
     }
 
     public function update($val)

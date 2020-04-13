@@ -316,7 +316,7 @@ class CI_FTP {
 		// Set the mode if not specified
 		if ($mode === 'auto')
 		{
-			// Get the file extension so we can set the upload type
+			// Get the file extension so we can set the uploads type
 			$ext = $this->_getext($locpath);
 			$mode = $this->_settype($ext);
 		}
@@ -364,7 +364,7 @@ class CI_FTP {
 		// Set the mode if not specified
 		if ($mode === 'auto')
 		{
-			// Get the file extension so we can set the upload type
+			// Get the file extension so we can set the uploads type
 			$ext = $this->_getext($rempath);
 			$mode = $this->_settype($ext);
 		}
@@ -591,7 +591,7 @@ class CI_FTP {
 				}
 				elseif ($file[0] !== '.')
 				{
-					// Get the file extension so we can se the upload type
+					// Get the file extension so we can se the uploads type
 					$ext = $this->_getext($file);
 					$mode = $this->_settype($ext);
 
@@ -623,7 +623,7 @@ class CI_FTP {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Set the upload type
+	 * Set the uploads type
 	 *
 	 * @param	string	$ext	Filename extension
 	 * @return	string

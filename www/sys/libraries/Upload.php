@@ -366,7 +366,7 @@ class CI_Upload {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Perform the file upload
+	 * Perform the file uploads
 	 *
 	 * @param	string	$field
 	 * @return	bool
@@ -401,7 +401,7 @@ class CI_Upload {
 			return FALSE;
 		}
 
-		// Is the upload path valid?
+		// Is the uploads path valid?
 		if ( ! $this->validate_upload_path())
 		{
 			// errors will already be set by validate_upload_path() so just return FALSE
@@ -589,7 +589,7 @@ class CI_Upload {
 	 * Finalized Data Array
 	 *
 	 * Returns an associative array containing all of the information
-	 * related to the upload, allowing the developer easy access in one array.
+	 * related to the uploads, allowing the developer easy access in one array.
 	 *
 	 * @param	string	$index
 	 * @return	mixed
@@ -854,7 +854,7 @@ class CI_Upload {
 	 */
 	public function is_image()
 	{
-		// IE will sometimes return odd mime-types during upload, so here we just standardize all
+		// IE will sometimes return odd mime-types during uploads, so here we just standardize all
 		// jpegs or pngs to the same file type.
 
 		$png_mimes  = array('image/x-png');
@@ -982,7 +982,7 @@ class CI_Upload {
 	/**
 	 * Validate Upload Path
 	 *
-	 * Verifies that it is a valid upload path with proper permissions.
+	 * Verifies that it is a valid uploads path with proper permissions.
 	 *
 	 * @return	bool
 	 */
@@ -1139,7 +1139,7 @@ class CI_Upload {
 	 */
 	public function set_error($msg, $log_level = 'error')
 	{
-		$this->_CI->lang->load('upload');
+		$this->_CI->lang->load('uploads');
 
 		is_array($msg) OR $msg = array($msg);
 		foreach ($msg as $val)
