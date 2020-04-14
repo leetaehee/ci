@@ -29,13 +29,16 @@ class Form extends CI_Controller
             'passconf',
             'Password Confirmation',
             'trim|required|matches[password]'
-            
         );
         $this->form_validation->set_rules(
             'email',
             'Email',
-            'trim|required'
+            'required',
+            array('required' => '필수입니다!!!')
         );
+
+        $this->form_validation->set_message('min_length', '{field} 필드는 {param} 자 이상 입력하세요!');
+        $this->form_validation->set_message('max_length', '{field} 필드는 {param} 자 이내로 입력하세요!');
 
         if ($this->form_validation->run() === false) {
             $this->load->view('myform');
