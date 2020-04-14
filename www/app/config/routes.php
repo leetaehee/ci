@@ -68,3 +68,6 @@ $route['blog/mail'] = 'Blog/mail';
 // fileupload
 $route['upload'] = 'Upload/index';
 $route['upload/do_upload'] = 'Upload/do_upload';
+
+// form validation
+$route['form/index'] = 'Form/index';
