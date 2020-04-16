@@ -5,46 +5,37 @@ class Form extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
-
+        $this->load->library('form_validation');
+        $this->lang->load('form_validation_lang');
     }
 
     public function index()
     {
-        $this->load->helper(array('form', 'url'));
+        // 입력데이터 가져오기
+        $username = $this->input->post('username', true);
+        $ip = $this->input->ip_address();
 
-        $this->load->library('form_validation');
+        // 언어파일 로딩
+        $this->lang->load('error_lang', 'english');
+        echo $this->lang->line('error_language_key');
 
-        $this->form_validation->set_rules(
-            'username',
-            'Username',
-            'trim|required|min_length[2]|max_length[10]|callback_username_check'
-        );
-        $this->form_validation->set_rules(
-            'password',
-            'Password',
-            'required',
-            'trim|required|md5'
-        );
-        $this->form_validation->set_rules(
-            'passconf',
-            'Password Confirmation',
-            'trim|required|matches[password]'
-        );
-        $this->form_validation->set_rules(
-            'email',
-            'Email',
-            'required',
-            array('required' => '필수입니다!!!')
-        );
+       /** config/form_validation.php 에서 불러옴*/
+        // 배열의 키를 불러오는 방법
+        /*
+            if ($this->form_validation->run('signup') == false) {
+                $this->load->view('myform');
+            } else {
+                $this->load->view('formsuccess');
+            }
+        */
 
-        $this->form_validation->set_message('min_length', '{field} 필드는 {param} 자 이상 입력하세요!');
-        $this->form_validation->set_message('max_length', '{field} 필드는 {param} 자 이내로 입력하세요!');
-
-        if ($this->form_validation->run() === false) {
+        //controller  class/function 명으로 불러오는 방법
+        if ($this->form_validation->run('form/index') == false) {
             $this->load->view('myform');
         } else {
             $this->load->view('formsuccess');
         }
+
     }
 
     public function username_check($str)
