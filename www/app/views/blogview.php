@@ -12,5 +12,8 @@
                 <li><?=$item?></li>
             <?php endforeach;?>
         </ul>
+
+        <!-- 페이징처리 -->
+        <?php echo $this->pagination->create_links();?>
     </body>
 </html>

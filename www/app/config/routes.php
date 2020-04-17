@@ -58,16 +58,20 @@ $route['translate_uri_dashes'] = FALSE;
 $route['default_controller'] = 'Welcome';
 
 // blog
-$route['blog'] = 'Blog/index';
+$route['blog/index'] = 'Blog/index';
 $route['blog/cm'] = 'Blog/comments';
 $route['blog/update/(:val)'] = 'Blog/update';
 $route['blog/insert'] = 'Blog/insert';
 $route['blog/delete/(:val)'] = 'Blog/delete';
 $route['blog/mail'] = 'Blog/mail';
+$route['blog/template'] = 'Blog/template';
 
 // fileupload
 $route['upload'] = 'Upload/index';
 $route['upload/do_upload'] = 'Upload/do_upload';
 
 // form validation
-$route['form/index'] = 'Form/index';
+$route['form'] = 'Form/index';
+
+// migration
+$route['migrate'] = 'Migrate/index';

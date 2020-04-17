@@ -7,18 +7,55 @@ class Blog extends CI_Controller
 
         // 모델 사용
         $this->load->model('Blog_model');
+        // 페이징 로드
+        $this->load->library('pagination');
+        // 파일캐싱
+        $this->load->driver('cache');
+        // 암호화 클래스 초기화
+        $this->load->library('encryption');
+        // 이메일 보내기
+        $this->load->library('email');
+        // 템플릿 파서
+        $this->load->library('parser');
     }
 
-    public function index()
+    public function index($page = 0)
     {
         // 모델함수 사용
         $this->Blog_model->get_last_ten_entries();
 
-        $data['todo_list'] = array('Clean House', 'Call Mom', 'Run Errands');
 
         $data['title'] = 'My Real Title';
         $data['heading'] = 'My Real Heading';
+        $data['todo_list'] = array(
+            'Clean House',
+            'Call Mom',
+            'Run Errands',
+            'develop_php',
+            'publishing_web',
+            'css',
+            'js',
+            'BEMS',
+            'BEMS Mobile',
+            'HEMS',
+            'Laravel',
+            'CodeIgniter',
+            'PHP'
+        );
 
+        // paging
+        $baseURL = $this->config->item('base_url');
+
+        // config/pagination.php 만들어서 할수있음
+        $config['base_url'] = $baseURL  . '/blog/index';
+        $config['total_rows'] = count($data['todo_list']);
+        $config['page_query_string']  = true;
+
+        $config['per_page'] = 5;
+
+        $this->pagination->initialize($config);
+
+        // view
         $this->load->view('blogview', $data);
     }
 
@@ -31,8 +68,6 @@ class Blog extends CI_Controller
         //$this->config->set_item('dev_dbms', 'MariaDB');
         $testSetting['dev_dbms'] = 'MariaDB';
 
-        // 파일캐싱
-        $this->load->driver('cache');
         $content = 'Loot at this! : ' . $testSetting['dev_dbms'];
         $this->cache->file->save('content', $content, 60);
 
@@ -43,9 +78,6 @@ class Blog extends CI_Controller
     public function insert()
     {
         $this->Blog_model->insert_entry();
-
-        // 암호화 클래스 초기화
-        $this->load->library('encryption');
 
         // 암호화
         $encryptPassword = $this->encryption->encrypt('akfxlwmeoxhdfud!@');
@@ -65,9 +97,6 @@ class Blog extends CI_Controller
 
     public function mail()
     {
-        // 이메일 보내기
-        $this->load->library('email');
-
         $this->email->from('lastride25@naver.com', "이태희");
         $this->email->to('ceman08071039@gmail.com');
         $this->email->cc(
@@ -83,5 +112,48 @@ class Blog extends CI_Controller
         $errorMessage = ($result === true) ?  'success' : 'fail';
 
         log_message('info', '==> mail send status code : ' . $errorMessage);
+    }
+
+    public function template()
+    {
+        $data = array(
+            'blog_title' => 'My Blog Title',
+            'blog_heading' => 'To do List',
+            'blog_entries' => array(
+                array(
+                    'title' => 'To do Item 1',
+                    'body' => 'BEMS'
+                ),
+                array(
+                    'title' => 'To do Item 2',
+                    'body' => 'BEMS MOBILE'
+                ),
+                array(
+                    'title' => 'To do Item 3',
+                    'body' => 'HEMS'
+                ),
+                array(
+                    'title' => 'To do Item 4',
+                    'body' => 'Laravel'
+                ),
+                array(
+                    'title' => 'To do Item 5',
+                    'body' => 'CodeIgniter.'
+                )
+            )
+        );
+
+        // paging
+        $baseURL = $this->config->item('base_url');
+
+        // config/pagination.php 만들어서 할수있음
+        $config['base_url'] = $baseURL  . '/blog/template';
+        $config['total_rows'] = count($data['blog_entries']);
+        $config['page_query_string']  = true;
+        $config['per_page'] = 3;
+
+        $this->pagination->initialize($config);
+
+        $this->parser->parse('blog_template', $data);
     }
 }
