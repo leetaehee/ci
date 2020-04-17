@@ -139,6 +139,10 @@ class Blog extends CI_Controller
                 array(
                     'title' => 'To do Item 5',
                     'body' => 'CodeIgniter.'
+                ),
+                array(
+                    'title' => 'To do Item 6',
+                    'body' => 'Java Android.'
                 )
             )
         );
