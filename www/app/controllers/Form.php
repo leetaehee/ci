@@ -48,4 +48,19 @@ class Form extends CI_Controller
             return true;
         }
     }
+
+    public function xssForm()
+    {
+        $csrf = array(
+            'name' => $this->security->get_csrf_token_name(),
+            'hash' => $this->security->get_csrf_hash()
+        );
+
+        $this->load->view('xss', $csrf);
+    }
+
+    public function xssFormProc()
+    {
+        echo '완료!';
+    }
 }

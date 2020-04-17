@@ -71,7 +71,8 @@ $route['upload'] = 'Upload/index';
 $route['upload/do_upload'] = 'Upload/do_upload';
 
 // form validation
-$route['form'] = 'Form/index';
+$route['form/xss'] = 'Form/xssForm';
+$route['form/xss_proc'] = 'Form/xssFormProc';
 
 // migration
 $route['migrate'] = 'Migrate/index';
