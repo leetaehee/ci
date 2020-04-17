@@ -19,7 +19,7 @@ class Form extends CI_Controller
         $this->lang->load('error_lang', 'english');
         echo $this->lang->line('error_language_key');
 
-       /** config/form_validation.php 에서 불러옴*/
+        /** config/form_validation.php 에서 불러옴*/
         // 배열의 키를 불러오는 방법
         /*
             if ($this->form_validation->run('signup') == false) {
