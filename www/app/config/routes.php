@@ -76,3 +76,6 @@ $route['form/xss_proc'] = 'Form/xssFormProc';
 
 // migration
 $route['migrate'] = 'Migrate/index';
+
+// main
+$route['main'] = 'Main/index';
