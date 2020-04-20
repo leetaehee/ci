@@ -90,14 +90,42 @@ class Blog extends CI_Controller
 
     }
 
-    public function update($val)
+    public function update($blogId)
     {
-        $this->Blog_model->update_entry($val);
+        // 게시글 아이디 체크
+        $newBlogId = $this->Blog_model->checkBlogId($blogId);
+
+        if ($newBlogId < 0) {
+            log_message('error', '==> blogId 을 찿을 수 없습니다. ('. $blogId .')');
+            return;
+        }
+
+        $affectedRows = $this->Blog_model->update_entry($newBlogId);
+        if ($affectedRows < 0) {
+            echo '데이터 수정에 실패하였습니다. ';
+            exit;
+        }
+
+        echo '데이터 수정에 성공하였습니다!';
     }
 
-    public function delete($val)
+    public function delete($blogId)
     {
-        $this->Blog_model->delete_entry($val);
+        // 게시글 아이디 체크
+        $newBlogId = $this->Blog_model->checkBlogId($blogId);
+
+        if ($newBlogId < 0) {
+            log_message('error', '==> blogId 을 찿을 수 없습니다. ('. $blogId .')');
+            return;
+        }
+
+        $affectedRows = $this->Blog_model->delete_entry($blogId);
+        if ($affectedRows < 0) {
+            echo '데이터 삭제에 실패하였습니다. ';
+            exit;
+        }
+
+        echo '데이터 삭제에 성공하였습니다!';
     }
 
     public function mail()
@@ -116,7 +144,7 @@ class Blog extends CI_Controller
         $result = $this->email->send();
         $errorMessage = ($result === true) ?  'success' : 'fail';
 
-        log_message('info', '==> mail send status code : ' . $errorMessage);
+        log_message('debug', '==> mail send status code : ' . $errorMessage);
     }
 
     public function template()

@@ -15,7 +15,7 @@ class Blog_model extends CI_Model
     public function getBlogData($page)
     {
         // 로그 출력
-        log_message('info', '==> Blog_model :: getBlogData()');
+        log_message('debug', '==> Blog_model :: getBlogData()');
 
         $params = array('page' => $page);
 
@@ -29,7 +29,7 @@ class Blog_model extends CI_Model
     public function getBlogDataTotal()
     {
         // 로그 출력
-        log_message('info', '==> Blog_model :: getBlogDataTotal()');
+        log_message('debug', '==> Blog_model :: getBlogDataTotal()');
 
         $rBlogCountQ = "SELECT COUNT(`blog_id`) `total` FROM `ci_blog`";
 
@@ -43,7 +43,7 @@ class Blog_model extends CI_Model
     public function insert_entry()
     {
         // 로그 출력 
-        log_message('info', '==> Blog_model :: insert_entry()');
+        log_message('debug', '==> Blog_model :: insert_entry()');
 
         // simple query
         /*
@@ -86,13 +86,58 @@ class Blog_model extends CI_Model
         return $affectedRows;
     }
 
-    public function update_entry($val)
+    public function update_entry($blogId)
     {
-        log_message('info', '==> Blog_model :: update_entry() : ' . $val);
+        $result = 0;
+
+        // 로그출력
+        log_message('debug', '==> Blog_model :: update_entry() : ' . $blogId);
+
+        $data = array(
+            'blog_title' => 'CI 업데이트 테스트.',
+            'blog_description' => 'CI 업데이트 구문은 이렇게- 쿼리빌더로 시도함'
+        );
+
+        $this->db->where('blog_id', $blogId);
+        $this->db->update('ci_blog', $data);
+
+        $affectedRows = $this->db->affected_rows();
+
+        $this->db->close();
+
+        return $affectedRows;
     }
 
-    public function delete_entry($val)
+    public function delete_entry($blogId)
     {
-        log_message('info', '==> Blog_model :: delete_entry() : ' . $val);
+        log_message('debug', '==> Blog_model :: delete_entry() : ' . $blogId);
+
+        $this->db->where('blog_id', $blogId);
+        $this->db->delete('ci_blog');
+
+        $affectedRows = $this->db->affected_rows();
+
+        $this->db->close();
+
+        return $affectedRows;
+    }
+
+    public function checkBlogId($blogId)
+    {
+        // 로그출력
+        log_message('debug', '==> Blog_model :: checkBlogId() : ' . $blogId);
+
+        // 게시물 고유번호 체크
+        //$query = $this->db->get('ci_blog');
+        $query = $this->db->get_where('ci_blog', array('blog_id' => $blogId));
+
+        if ($query->num_rows() < 1) {
+            // pk가 있는지 체크
+            return -1;
+        }
+
+        $row = $query->row_array();
+
+        return $row['blog_id'];
     }
 }
