@@ -19,41 +19,37 @@ class Blog extends CI_Controller
         $this->load->library('email');
         // 템플릿 파서
         $this->load->library('parser');
+        // 세션
+        $this->load->library('session');
     }
 
-    public function index($page = 0)
+    public function index()
     {
-        // 모델함수 사용
-        $this->Blog_model->get_last_ten_entries();
+        // 페이지 번호
+        $page = (int)$this->input->get('per_page');
 
+        if ($page === 0) {
+            $page = 0;
+        }
+
+        // 블로그데이터 가져오기
+        $result = $this->Blog_model->getBlogData($page);
+        // 블로그 데이터 카운트
+        $total = $this->Blog_model->getBlogDataTotal();
 
         $data['title'] = 'My Real Title';
-        $data['heading'] = 'My Real Heading';
-        $data['todo_list'] = array(
-            'Clean House',
-            'Call Mom',
-            'Run Errands',
-            'develop_php',
-            'publishing_web',
-            'css',
-            'js',
-            'BEMS',
-            'BEMS Mobile',
-            'HEMS',
-            'Laravel',
-            'CodeIgniter',
-            'PHP'
-        );
+        $data['blog_title'] = 'My Real Heading';
+        $data['blog_description'] = $result;
 
         // paging
         $baseURL = $this->config->item('base_url');
 
         // config/pagination.php 만들어서 할수있음
         $config['base_url'] = $baseURL  . '/blog/index';
-        $config['total_rows'] = count($data['todo_list']);
-        $config['page_query_string']  = true;
-
         $config['per_page'] = 5;
+        $config['uri_segment'] = 5;
+        $config['total_rows'] = $total;
+        $config['page_query_string']  = true;
 
         $this->pagination->initialize($config);
 
@@ -79,12 +75,19 @@ class Blog extends CI_Controller
 
     public function insert()
     {
-        $this->Blog_model->insert_entry();
-
         // 암호화
         $encryptPassword = $this->encryption->encrypt('akfxlwmeoxhdfud!@');
         // 복호화
         $decryptPassword = $this->encryption->decrypt($encryptPassword);
+
+        $affectedRows = $this->Blog_model->insert_entry();
+        if ($affectedRows < 0) {
+            echo '데이터 입력에 실패하였습니다. ';
+            exit;
+        }
+
+        echo '데이터 입력에 성공하였습니다!';
+
     }
 
     public function update($val)
@@ -161,5 +164,34 @@ class Blog extends CI_Controller
         $this->pagination->initialize($config);
 
         $this->parser->parse('blog_template', $data);
+    }
+
+    public function saveSession()
+    {
+        $newData = array(
+            'username' => 'johndoe',
+            'email' => 'johndoe@some-site.com',
+            'logged_in' => true
+        );
+
+        // 세션 생성
+        $this->session->set_userdata('userData1', $newData);
+
+        // 생성후 결과 조회
+        print_r($_SESSION['userData1']);
+
+        // 세션 키 조회
+        //echo isset($_SESSION['userData1']['username']);
+
+        // 개별 세션 삭제
+        //$this->session->unset_userdata('userData1');
+
+        // 삭제후 결과 조회 (삭제가 되면 출력되지 않음
+        //print_r($_SESSION['userData1']);
+
+        // 모든 세션 삭제
+        //session_destroy()
+        $this->session->sess_destroy();
+
     }
 }

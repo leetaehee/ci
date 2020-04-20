@@ -65,6 +65,7 @@ $route['blog/insert'] = 'Blog/insert';
 $route['blog/delete/(:val)'] = 'Blog/delete';
 $route['blog/mail'] = 'Blog/mail';
 $route['blog/template'] = 'Blog/template';
+$route['blog/session'] = 'Blog/saveSession';
 
 // fileupload
 $route['upload'] = 'Upload/index';

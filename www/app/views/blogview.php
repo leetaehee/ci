@@ -3,13 +3,17 @@
     <meta charset="UTF-8">
     <title><?=$title?></title>
     <body>
-        <h1><?=$heading?></h1>
+        <h1><?=$blog_title?></h1>
 
         <h3>My Todo List</h3>
 
+
         <ul>
-            <?php foreach($todo_list as $item): ?>
-                <li><?=$item?></li>
+            <?php foreach($blog_description as $item): ?>
+                <li>
+                    제목 : <?=$item['blog_title']?> <br>
+                    내용 : <?=$item['blog_description']?>
+                </li>
             <?php endforeach;?>
         </ul>
 
